@@ -1,103 +1,161 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import { supabase } from '@/lib/supabase';
+import { TypeAnimation } from 'react-type-animation';
+import { motion } from 'framer-motion';
+
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [form, setForm] = useState({ name: '', email: '', requestcal: false });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const { name, email, requestcal } = form;
+
+    const { error } = await supabase
+      .from('beta_signups')
+      .insert([{ name, email, requestcal }]);
+
+    if (error) {
+      console.error('Supabase insert error:', error.message);
+      alert('Something went wrong. Please try again.');
+    } else {
+      alert('Thanks for signing up!');
+      setForm({ name: '', email: '', requestcal: false });
+    }
+  };
+
+  return (
+
+      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 text-center">
+        {/* Title with animation */}
+        <motion.p
+  initial={{ opacity: 0, y: -10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, delay: 0.2 }}
+  className="text-3sm italic text-gray-400 mb-4"
+>
+  <TypeAnimation
+  sequence ={[
+    "A Next-Generation Productivity Tool", 2000,
+    "Private Workspace for Big Ideas", 2000,
+  ]} ></TypeAnimation>
+</motion.p>
+
+        <motion.h1
+          initial={{ y: -40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="text-6xl font-extrabold text-white z-10"
+        >
+          ConvoThought
+        </motion.h1>
+
+      {/* Typing animation for "shadow" */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.7 }}
+        transition={{ delay: 1.2, duration: 1 }}
+        className="text-5xl font-bold text-gray-400 mt-2"
+      >
+        <TypeAnimation
+          sequence={[
+            'ConvoThought', 1200,
+            'ConvoTh', 300,
+            'ConvoThat', 800
+          ]}
+          wrapper="span"
+          speed={40}
+          style={{ display: 'inline-block' }}
+          cursor={true}
+        />
+      </motion.div>
+
+
+      <p className="text-center text-lg mt-6 mb-2 text-white">
+        Be the first to try it out.
+      </p>
+
+      {/* Signup Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="w-full sm:w-1/2 lg:w-1/3 mx-auto p-6 border border-white rounded-xl space-y-4"
+      >
+        <div>
+          <label htmlFor="name" className="block text-sm font-semibold mb-1 text-white">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            className="w-full p-2 bg-black text-white border border-white rounded focus:outline-none focus:ring-2 focus:ring-white"
+            required
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+
+        <div>
+          <label htmlFor="email" className="block text-sm font-semibold mb-1 text-white">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            className="w-full p-2 bg-black text-white border border-white rounded focus:outline-none focus:ring-2 focus:ring-white"
+            required
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        </div>
+
+        {/* RequestCal checkbox */}
+        
+<div className="flex justify-center mt-4">
+  <label className="inline-flex items-center text-sm text-white gap-2">
+    <input
+      type="checkbox"
+      id="requestcal"
+      name="requestcal"
+      className="accent-white"
+    />
+    <span>
+      Also stay in loop about <span className="font-semibold">RequestCal</span> — a smarter way to schedule.
+    </span>
+  </label>
+</div>
+
+        <button
+          type="submit"
+          className="w-full bg-white text-black font-semibold font-sans py-2 rounded hover:bg-gray-200 transition"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Submit
+        </button>
+      </form>
+
+      <footer className="mt-16 text-sm text-gray-500 text-center space-y-2">
+  <p>
+    <strong>By <span className="font-medium text-white">Alice S. Kim</span>, Stanford University</strong><br />
+    (B.S. Symbolic Systems – AI Computer Science + Psychology)
+  </p>
+  <div className="flex justify-center gap-4 text-white underline underline-offset-4">
+    <a href="https://www.linkedin.com/in/alicesykim" target="_blank" rel="noopener noreferrer">
+      LinkedIn
+    </a>
+    
+  </div>
+</footer>
     </div>
   );
 }
