@@ -143,7 +143,7 @@ export default function Home() {
 
       <footer className="mt-16 text-sm text-gray-500 text-center space-y-2">
         <p>
-          <strong>By <span className="font-medium text-white">Alice S. Kim</span>, Stanford University</strong><br />
+          <strong>Built with ❤️ by <span className="font-medium text-white">Alice S. Kim</span>, Stanford University</strong><br />
           (B.S. Symbolic Systems – AI Computer Science + Psychology)
         </p>
         <div className="flex justify-center gap-4 text-white underline underline-offset-4">
