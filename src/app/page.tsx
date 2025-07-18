@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
 
-    <div className="min-h-screen w-full overflow-x-hidden bg-black text-white flex flex-col items-center justify-center px-6 text-center pt-24">
+    <div className="min-h-screen w-full overflow-x-hidden bg-black text-white flex flex-col items-center justify-center px-6 text-center pt-20 pb-16">
       <motion.p
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -141,7 +141,7 @@ export default function Home() {
         </button>
       </form>
 
-      <footer className="mt-16 text-sm text-gray-500 text-center space-y-2 px-4">
+      <footer className="mt-16 mb-2 text-sm text-gray-500 text-center space-y-2 px-4">
         <p>
           <strong>Built with ❤️ by <span className="font-medium text-white">Alice S. Kim</span>, Stanford University</strong><br />
           (B.S. Symbolic Systems – AI Computer Science + Psychology)
