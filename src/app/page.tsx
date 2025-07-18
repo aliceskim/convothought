@@ -29,19 +29,19 @@ export default function Home() {
       console.error('Supabase insert error:', error.message);
       alert('Something went wrong. Please try again.');
     } else {
-      alert('Thanks for signing up!');
+      alert('Thank you for signing up!');
       setForm({ name: '', email: '', requestcal: false });
     }
   };
 
   return (
 
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 text-center">
+    <div className="min-h-screen w-full overflow-x-hidden bg-black text-white flex flex-col items-center justify-center px-6 text-center pt-24">
       <motion.p
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-3sm italic text-gray-400 mb-4"
+        className="text-sm sm:text-base italic text-gray-400 mb-4"
       >
         <TypeAnimation
           sequence={[
@@ -54,7 +54,7 @@ export default function Home() {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
-        className="text-6xl font-extrabold text-white z-10"
+        className="text-4xl sm:text-6xl font-extrabold text-white z-10"
       >
         ConvoThought
       </motion.h1>
@@ -63,7 +63,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.7 }}
         transition={{ delay: 1.2, duration: 1 }}
-        className="text-5xl font-bold text-gray-400 mt-2"
+        className="text-3xl sm:text-5xl font-bold text-gray-400 mt-2"
       >
         <TypeAnimation
           sequence={[
@@ -79,13 +79,13 @@ export default function Home() {
       </motion.div>
 
 
-      <p className="text-center text-lg mt-6 mb-2 text-white">
+      <p className="text-center text-base sm:text-lg mt-6 mb-2 text-white">
         Be the first to try it out.
       </p>
 
       <form
         onSubmit={handleSubmit}
-        className="w-full sm:w-1/2 lg:w-1/3 mx-auto p-6 border border-white rounded-xl space-y-4"
+        className="w-full max-w-md p-8 border border-white rounded-xl space-y-4"
       >
         <div>
           <label htmlFor="name" className="block text-sm font-semibold mb-1 text-white">
@@ -128,7 +128,7 @@ export default function Home() {
               className="accent-white"
             />
             <span>
-              Also stay in loop about <span className="font-semibold">RequestCal</span> — a smarter way to schedule.
+              Also stay in loop about <span className="font-semibold">RequestCal</span> —<br />a smarter way to schedule.
             </span>
           </label>
         </div>
@@ -141,7 +141,7 @@ export default function Home() {
         </button>
       </form>
 
-      <footer className="mt-16 text-sm text-gray-500 text-center space-y-2">
+      <footer className="mt-16 text-sm text-gray-500 text-center space-y-2 px-4">
         <p>
           <strong>Built with ❤️ by <span className="font-medium text-white">Alice S. Kim</span>, Stanford University</strong><br />
           (B.S. Symbolic Systems – AI Computer Science + Psychology)
