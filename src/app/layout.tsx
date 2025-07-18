@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "ConvoThought",
   description: "ConvoThought: A Knowledge Space",
   icons: {
-    icon: '/fav1.png'
+    icon: '/fav1.png',
   }
 };
 
