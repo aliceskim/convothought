@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ConvoThought: A Knowledge Space",
-  description: "ConvoThought: A Knowledge Space",
+  title: "ConvoThought | Knowledge Space",
+  description: "ConvoThought | Knowledge Space",
   icons: {
     icon: '/fav1.png',
   }
